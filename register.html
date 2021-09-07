@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Registrazione</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="headline">
+                <h1>Ciao.</h1>
+                <h1><span>YQ Quiz</span> ti aspetta,</h1>
+                <h1>registrati.</h1>
+            </div>
+                <form class="form" method="post" action="php/register.php">
+                    <div class="signup">
+                        <div class="form-group">
+                            <input type="text" id="username" placeholder="Username" name="username" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" placeholder="Password" name="password" required>
+                        </div>
+                        <button class="btn" type="submit" name="register">Registrati</button>
+                        <div class="account-exist">
+                            Hai già un account? Effettua il <a href="login.html">login</a>.
+                        </div>
+                    </div>
+                </form>
+    </div>
+    </body>
+</html>

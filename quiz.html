@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>YQ Quiz</title>
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<section class="wrapper">
+
+	<div class="questionBox" id="app">
+
+		<transition :duration="{ enter: 500, leave: 300 }" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" mode="out-in">
+
+			<!--Container Domande-->
+			<div class="questionContainer" v-if="questionIndex<quiz.questions.length" v-bind:key="questionIndex">
+
+				<header>
+					<h1 class="title is-6">YQ Quiz</h1>
+					<!--Barra Progresso-->
+					<div class="progressContainer">
+						<progress class="progress is-info is-small" :value="(questionIndex/quiz.questions.length)*100" max="100">{{(questionIndex/quiz.questions.length)*100}}%</progress>
+						<p>{{(questionIndex/quiz.questions.length)*100}}% complete</p>
+					</div>
+					<!--/progresso-->
+				</header>
+
+				<!-- Titolo Domanda -->
+				<h2 class="titleContainer title">{{ quiz.questions[questionIndex].text }}</h2>
+
+				<!-- Opzioni Quiz -->
+				<div class="optionContainer">
+					<div class="option" v-for="(response, index) in quiz.questions[questionIndex].responses" @click="selectOption(index)" :class="{ 'is-selected': userResponses[questionIndex] == index}" :key="index">
+						{{ index | charIndex }}. {{ response.text }}
+					</div>
+				</div>
+
+				<!--quiz Footer-->
+				<footer class="questionFooter">
+
+					<!--pagination-->
+					<nav class="pagination" role="navigation" aria-label="pagination">
+
+						<!-- Tasto back -->
+						<a class="button btn" v-on:click="prev();" :disabled="questionIndex < 1">
+                    Back
+                  </a>
+
+						<!-- Tasto next -->
+						<a class="button btn" :class="(userResponses[questionIndex]==null)?'':'is-active'" v-on:click="next();" :disabled="questionIndex>=quiz.questions.length">
+                    {{ (userResponses[questionIndex]==null)?'Skip':'Next' }}
+                  </a>
+
+					</nav>
+					<!--/pagination-->
+
+				</footer>
+				<!--/quiz Footer-->
+
+			</div>
+			<!--/Container Domande-->
+
+			<!--quiz Completato Risultato-->
+			<div v-if="questionIndex >= quiz.questions.length" v-bind:key="questionIndex" class="quizCompleted has-text-centered">
+
+				<!-- quiz Completato Icone -->
+				<span class="icon">
+                <i class="fa" :class="score()>2?'fa-check-circle-o is-active':'fa-times-circle'"></i>
+              </span>
+
+				<!--result block -->
+				
+				<p class="subtitle">
+					Total score: {{ score() }} / {{ quiz.questions.length }}
+				</p>
+					<br>
+					<a class="button" @click="restart()">restart <i class="fa fa-refresh"></i></a>
+				<!--/result block-->
+
+			</div>
+			<!--/quiz Competato Risultato-->
+
+		</transition>
+
+	</div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script  src="js/script.js"></script>
+
+</body>
+</html>
